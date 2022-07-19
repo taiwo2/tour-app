@@ -1,0 +1,32 @@
+body {
+  margin: 0;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.header-text{
+  color: #606080;
+  font-weight: 5000;
+  font-size: 17px;
+  margin-top: 7px;
+}
+
+.top-left{
+  position: absolute;
+  top: 8px;
+  left: 17px;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.tag-card {
+  margin: 10px 0 0 20px;
+  color: #606080;
+}
