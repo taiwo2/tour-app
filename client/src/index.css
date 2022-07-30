@@ -14,7 +14,7 @@ code {
   color: #606080;
   font-weight: 5000;
   font-size: 17px;
-  margin-top: 7px;
+  margin-top: 17px;
 }
 
 .top-left{
@@ -29,4 +29,42 @@ code {
 .tag-card {
   margin: 10px 0 0 20px;
   color: #606080;
+}
+
+.tourName {
+  color: #606080;
+  font-size: 16px;
+  margin: 0 0 0 4px;
+  font-weight: 500;
+}
+
+.tagErr{
+  color: #f93154;
+  margin-top: 5px;
+  text-align: left;
+  font-size: 14px ;
+}
+
+h4 {
+  overflow: hidden;
+  text-align: center;
+}
+
+h4::before,
+h4::after{
+  background-color: #000;
+  content: "";
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  width: 50%;
+  vertical-align: middle;
+}
+h4::before {
+  right: 0.5rem;
+  margin-left: -50%;
+}
+h4::after {
+  right: 0.5rem;
+  margin-left: -50%;
 }

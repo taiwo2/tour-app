@@ -2,15 +2,41 @@ import React, {useState} from 'react'
 import {MDBContainer,MDBNavbar,MDBNavbarBrand,MDBCollapse,MDBIcon,
   MDBNavbarToggler,MDBNavbarLink,MDBNavbarItem,MDBNavbarNav}
  from "mdb-react-ui-kit";
- import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setLogout } from '../redux/feature/authSlice';
+import { searchTour } from '../redux/feature/tourSlice';
+import { useNavigate } from 'react-router-dom';
+import decode from "jwt-decode"
 const Header = () => {
   const [show, setShow] = useState(false);
+  const [search, setSearch] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {user} = useSelector(state => ({...state.auth}))
 
+  const token = user?.token;
+
+  if (token) {
+    // install jwt-decode to decode expired token
+    const decodeToken = decode(token);
+    if (decodeToken.exp * 1000 < new Date().getTime()){
+      dispatch(setLogout());
+    }
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (search) {
+      dispatch(searchTour(search));
+      navigate(`/tours/search?searchQuery=${search}`);
+      setSearch("")
+    }else {
+      navigate("/");
+    }
+  }
+
   const handleLogout = () => {
-    dispatch(setLogout())
+    dispatch(setLogout());
   }
   return (
     <MDBNavbar fixed='top' expand="lg" style={{backgroundColor: "#f0e6ea"}}>
@@ -31,7 +57,7 @@ const Header = () => {
         <MDBCollapse show={show} navbar>
           <MDBNavbarNav right fullWidth={false} className="mb-2 mb-lg-0">
             {user?.result?._id && (
-              <h5 style={{marginRight: "30px",marginTop: "17px"}}>
+              <h5 style={{marginRight: "30px",marginTop: "27px"}}>
                 Logged in as : {user?.result?.name}
               </h5>
             )}
@@ -68,6 +94,18 @@ const Header = () => {
               </MDBNavbarItem>
               )}
           </MDBNavbarNav>
+          <form className='d-flex input-group w-auto' onSubmit={handleSubmit}>
+            <input 
+              type="text"
+              placeholder="Search Tour"
+              className="form-control"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <div style={{marinTop: "5px",marginleft: "5px"}}>
+              <MDBIcon fas icon='search'/>
+            </div>
+          </form>
         </MDBCollapse>
       </MDBContainer>
     </MDBNavbar>

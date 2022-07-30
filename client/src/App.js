@@ -9,6 +9,11 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "./redux/feature/authSlice";
 import AddTour from "./pages/AddTour";
+import SingleTour from "./pages/SingleTour";
+import Dashboard from "./pages/Dashboard";
+import PrtivateRoute from "./components/PrtivateRoute";
+import NotFound from "./pages/NotFound";
+import TagTours from "./pages/TagTours";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,9 +28,33 @@ function App() {
         <ToastContainer />
           <Routes>
             <Route path="/" element={<Home/>} />
+            <Route path="/tours/search" element={<Home/>} />
+            <Route path="/tours/tag/:tag" element={<TagTours/>} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/addtour/:id" element={<AddTour />} />
+            <Route path="/addtour" 
+              element={
+                <PrtivateRoute>
+                  <AddTour />
+                </PrtivateRoute>
+              } 
+            />
+            <Route path="/editTour/:id" 
+              element={
+                <PrtivateRoute>
+                  <AddTour />
+                </PrtivateRoute>
+              } 
+            />
+            <Route path="/tour/:id" element={<SingleTour />} />
+            <Route path="/dashboard" 
+              element={
+                <PrtivateRoute>
+                  <Dashboard />
+                </PrtivateRoute>    
+              } 
+            />
+            <Route path="*" element={<NotFound />} />
           </Routes>
       </div>
     </BrowserRouter>

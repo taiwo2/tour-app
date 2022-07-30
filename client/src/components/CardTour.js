@@ -1,22 +1,53 @@
 import React from 'react'
-import {MDBCardText,MDBCardGroup,MDBCard,MDBCardImage, MDBCardBody, MDBCardTitle}
+import {MDBCardText,MDBCardGroup,MDBCard,MDBCardImage, MDBCardBody, MDBCardTitle, MDBBtn, MDBIcon, MDBTooltip}
  from "mdb-react-ui-kit";
 import { Link } from 'react-router-dom';
-const CardTour = ({imageFile,_id,description,title,tags,name}) => {
-
+import { useDispatch, useSelector } from 'react-redux';
+import { likeTour } from '../redux/feature/tourSlice';
+const CardTour = ({imageFile,_id,description,title,tags,name,likes}) => {
+  const {user} = useSelector((state) => ({...state.auth}));
+  const dispatch = useDispatch()
+  const userId = user?.result?._id || user?.result?.googleId
   const readShot = (str) => {
-      // return str.split("").splice(0, word).join(" ") + "..."
     if (typeof str === 'string'){
-      // str = str.substring(0, 15) + '...';
     str =str.substring(0, 45) + "..."
     }
-    return str
-    
+    return str 
   }
-//   function truncate(str) {
-//     return typeof str === 'string' ? str.substring(0, 3) : '';
-// }
-// console.log(readShot(description))
+
+  const Likes = () => {
+    if (likes.length > 0) {
+      return likes.find((like) => like === userId) ? (
+        <>
+        <MDBIcon fas icon="thumbs-up" />
+        &nbsp;
+        {likes.length > 2 ? (
+          <MDBTooltip tag="a" title={`You and ${likes.length - 1} other people likes`}>
+            {likes.length}
+          </MDBTooltip>
+          ): (
+            `${likes.length} Likes${likes.length > 1 ? "s" : ""}`
+          )
+        }
+        </>
+      ) : (
+        <>
+        <MDBIcon fas icon="thumbs-up" />
+          &nbsp;{likes.length} {likes.length === 1 ? "Like" : "likes"}
+        </>
+      );
+    };
+    return (
+      <>
+        <MDBIcon far icon="thumbs-up" />
+        &nbsp;Like
+      </>
+    );
+  };
+
+  const handleLikes = () => {
+    dispatch(likeTour(_id))
+  }
   return (
     <MDBCardGroup>
       <MDBCard className='h-100 mt-2 d-sm-flex' style={{maxWidth: "20rem"}}>
@@ -28,13 +59,29 @@ const CardTour = ({imageFile,_id,description,title,tags,name}) => {
         />
         <div className="top-left"> {name}</div>
         <span className='text-start tag-card'>
-          {tags.map((item) => `${item}`)}
+          {tags.map((tag) => (
+            <Link to={`/tours/tag/${tag}`}>#{tag}</Link>
+          ))}
+          <MDBBtn 
+            style={{float: "right"}} 
+            tag="a" 
+            color="none"
+            onClick={!user?.result ? null : handleLikes}
+          >
+            {!user?.result ? (
+              <MDBTooltip title={`Please Login to like Tour`} tag="a">
+                <Likes />
+              </MDBTooltip>
+            ): (
+              <Likes />
+            )}    
+          </MDBBtn>
         </span>
         <MDBCardBody>
           <MDBCardTitle className='text-start'>{title}</MDBCardTitle>
           <MDBCardText className='text-start'>
             {readShot(description)}
-            <Link to={`/tour${_id}`}>Read more</Link>
+            <Link to={`/tour/${_id}`}>Read more</Link>
           </MDBCardText>
         </MDBCardBody>
       </MDBCard>

@@ -3,22 +3,24 @@ import {MDBRow,MDBTypography,MDBCol,MDBContainer}
  from "mdb-react-ui-kit";
  import { Link,useNavigate } from 'react-router-dom';
 import { useSelector,useDispatch, } from 'react-redux';
-import { getTours } from '../redux/feature/tourSlice';
+import { getTours,setCurrentPage } from '../redux/feature/tourSlice';
 import CardTour from '../components/CardTour';
+import Spinner from '../components/Spinner';
+import Pagination from './Pagination';
 
 const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {loading, tours} = useSelector((state) => ({...state.tour}))
+  const {loading, tours,currentPage,numberOfPages} = useSelector((state) => ({...state.tour}))
   useEffect(() => {
-    dispatch(getTours())
-  }, []);
+    dispatch(getTours(currentPage))
+  }, [currentPage]);
 
   if (loading) {
-    return <h5>Loading ...</h5>
+    return <Spinner />
   }
   return (
-    <div  style={{margin: "auto", padding: "15px", maxWidth: "1000px", alignContent: "center"}}>
+    <div style={{margin: "auto", padding: "15px", maxWidth: "1000px", alignContent: "center"}}>
       <MDBRow className="mt-5">
         {tours.length === 0 && (
           <MDBTypography className='text-center mb-0' tags="h2">
@@ -29,13 +31,20 @@ const Home = () => {
           <MDBContainer>
             <MDBRow className='row-cols-1 row-cols-md-3 g-2'>
               {tours && tours.map((item,index) => (
-                <>
-                <CardTour key={index} {...item} /></>
+                <div key={index}>
+                <CardTour  {...item} />
+                </div>
               ))}
             </MDBRow>
           </MDBContainer>
         </MDBCol>
       </MDBRow>
+      <Pagination 
+        setCurrentPage={setCurrentPage}
+        numberOfPages={numberOfPages}
+        dispatch={dispatch}
+        currentPage={currentPage}
+      />
     </div>
   )
 }
