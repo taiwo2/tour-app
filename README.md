@@ -3,7 +3,7 @@
   <p>A FUll-Stack react-redux single page responsive application, where a use can post,edit,updatea and Create when signin. A user needs to sign up and login to ther App</p>
 
 
-* ![Home](../tonaz.png)
+* ![Home](./tonaz.png)
 
 
 <!-- TABLE OF CONTENTS -->
