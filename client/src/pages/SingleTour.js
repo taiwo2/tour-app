@@ -1,7 +1,7 @@
-import React, {useEffect,useState} from 'react'
-import {MDBCard,MDBCardBody,MDBIcon,MDBContainer, MDBCardImage, MDBCardText}
+import React, {useEffect} from 'react'
+import {MDBCard,MDBCardBody,MDBIcon,MDBContainer, MDBCardImage, MDBCardText,MDBBtn}
  from "mdb-react-ui-kit";
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRelatedTours, getTour } from '../redux/feature/tourSlice';
 import moment from "moment"
@@ -9,6 +9,7 @@ import RelatedTour from '../components/RelatedTour';
 import DisqusThread from '../components/DisqurTread';
 const SingleTour = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {id} = useParams();
   const {tour,relatedTour} = useSelector((state) => ({...state.tour}))
   console.log(relatedTour)
@@ -16,12 +17,14 @@ const SingleTour = () => {
 
   useEffect(() => {
     tags && dispatch(getRelatedTours(tags));
+    // eslint-disable-next-line  react-hooks/exhaustive-deps
   }, [tags]);
 
   useEffect(() => {
     if (id) {
-      dispatch(getTour(id))
-    }
+      dispatch(getTour(id));
+    };
+    // eslint-disable-next-line
   },[id]);
 
   return (
@@ -35,7 +38,20 @@ const SingleTour = () => {
             alt={tour.title}
           />
           <MDBCardBody>
-            <h3>{tour.title}</h3>
+          <MDBBtn 
+            style={{float: "left",color: "#000",}} 
+            tag="a" 
+            color="none"
+            onClick={() => navigate('/')}
+          >
+            <MDBIcon 
+              fas 
+              // style={{float: "left"}}
+              size="lg"
+              icon="long-arrow-alt-left"
+            />
+          </MDBBtn>
+            <h3 style={{textAlign: "center"}}>{tour.title}</h3> <br />
             <span>
               <p className="text-start tourName"> created By: {tour.name}</p>
             </span>

@@ -1,7 +1,7 @@
-import React, {useEffect,useState} from 'react'
+import React, {useEffect} from 'react'
 import {  MDBBtn, MDBCardBody, MDBCardGroup, MDBCardTitle,MDBCardImage, MDBCard, MDBCol, MDBIcon, MDBRow}
  from "mdb-react-ui-kit";
- import { Link, useParams } from 'react-router-dom';
+ import { Link} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteTour, getTourByUser } from '../redux/feature/tourSlice';
 import Spinner from '../components/Spinner';
@@ -29,14 +29,24 @@ const Dashboard = () => {
     if (userId) {
       dispatch(getTourByUser(userId))
     }
+    // eslint-disable-next-line
   },[userId]);
   if (loading) {
     return <Spinner/>
   }
   return (
     <div  style={{margin: "auto", padding: "120px", maxWidth: "900px", alignContent: "center"}}>
-      <h4 className='text-center'> Dashboard:  {user?.result.name}</h4>
-      <hr  style={{maxWidth: "750px"}}/>
+      {userTour.length === 0 && (
+        <h3>No tour available with user: {user?.result.name}</h3>
+      )}
+
+      {userTour.length > 0 && (
+        <>
+        <h4 className='text-center'> Dashboard: {user?.result.name}</h4>
+        <hr  style={{maxWidth: "750px"}}/>
+        </>
+      )}
+      
       {userTour && userTour.map((item) =>(
         <MDBCardGroup key={item._id} >
           <MDBCard style={{maxWidth: "600px"}} className="mt-2">

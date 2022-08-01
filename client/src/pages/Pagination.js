@@ -1,10 +1,10 @@
 import React from 'react'
-import {MDBCard,MDBCardBody,MDBInput,MDBIcon,MDBCardFooter,MDBValidation,MDBBtn,MDBSpinner, MDBPagination, MDBPaginationItem}
+import {MDBBtn,MDBPagination, MDBPaginationItem}
  from "mdb-react-ui-kit";
 const Pagination = ({currentPage,numberOfPages,setCurrentPage,dispatch}) => {
 
 const renderPagination = () => {
-  if (currentPage == numberOfPages && currentPage === 1) return null;
+  if (currentPage === numberOfPages && currentPage === 1) return null;
   if (currentPage === 1) {
     return (
       <MDBPagination center className="mb-0">

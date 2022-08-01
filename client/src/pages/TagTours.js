@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
-import {MDBCardText,MDBCardGroup,MDBCard,MDBCardImage, MDBCardTitle, MDBRow, MDBCol, MDBBtn}
+import {MDBCardGroup,MDBCard,MDBCardImage, MDBCardTitle, MDBRow, MDBCol, MDBBtn}
  from "mdb-react-ui-kit";
  import Spinner from '../components/Spinner';
  import { useDispatch, useSelector } from 'react-redux';
- import { getTagTour, searchTour } from '../redux/feature/tourSlice';
+ import { getTagTour} from '../redux/feature/tourSlice';
  import { useNavigate, useParams } from 'react-router-dom';
 
 
@@ -23,6 +23,7 @@ const TagTours = () => {
     if (tag) {
       dispatch(getTagTour(tag));
     }
+    // eslint-disable-next-line  react-hooks/exhaustive-deps
   }, [tag]);
 
   if (loading) {
@@ -44,14 +45,14 @@ const TagTours = () => {
                   fluid
                 />
               </MDBCol>
-              <MDBCol md="8">
-                <MDBCardTitle className="text-start">
+              <MDBCol md="8" >
+                <MDBCardTitle className="text-start" style={{paddingLeft: "10px"}}>
                   {item.title}
                 </MDBCardTitle>
-                <MDBCardTitle className="text-start">
+                <MDBCardTitle className="text-start" style={{paddingLeft: "10px"}}>
                   {readShot(item.description)}
                 </MDBCardTitle>
-                <div style={{float: "left",marginTop: "-10px"}}>
+                <div style={{float: "left",marginTop: "10px",paddingLeft: "10px"}}>
                   <MDBBtn 
                   size="sm"
                   color="info"

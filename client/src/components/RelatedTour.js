@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const RelatedTour = ({relatedTour, tourId}) => {
 
   const readShot = (str) => {
-    if (str?.length > 45 && str?.length < 0) {
+    if (typeof str === "string") {
       return str.substring(0,45) + "..."
     }
   }
@@ -15,7 +15,7 @@ const RelatedTour = ({relatedTour, tourId}) => {
     <>
     {relatedTour && relatedTour.length > 0 && (
       <>
-      {relatedTour.length > 1 && <h4>Related Tours</h4>}
+      {relatedTour.length > 1 && <h4 style={{textAlign: 'center'}}>Related Tours</h4>}
       <MDBRow className="row-cols-1 row-cols-md-3 g-4">
         {relatedTour.filter((item) => item._id !== tourId)
           .splice(0,3)
@@ -31,7 +31,7 @@ const RelatedTour = ({relatedTour, tourId}) => {
               </Link>
               <span className="text-start text-card">
                 {item.tags.map((tag) => (
-                  <Link to={`/tours/tags/${tag}`}>#{tag}</Link>
+                  <Link to={`/tours/tags/${tag}`} className="me-1">#{tag}</Link>
                 ))}
               </span>
               <MDBCardBody>

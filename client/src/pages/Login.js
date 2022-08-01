@@ -6,7 +6,9 @@ import { useSelector,useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { googleSignIn, login } from '../redux/feature/authSlice';
 import {GoogleLogin} from "react-google-login"
-
+// 323636793519-atcamsmo31giku5buqu6m2j86v7nf8q7.apps.googleusercontent.com
+const dotEnv = process.env.NODE_ENV !== "production";
+const clientId = dotEnv ? "246669271904-47veboe92nhm3360ecd1ba3kppu31spf.apps.googleusercontent.com" : "323636793519-atcamsmo31giku5buqu6m2j86v7nf8q7.apps.googleusercontent.com"
 const initialState = {
   email: "",
   password: ""
@@ -94,10 +96,7 @@ const Login = () => {
           </MDBValidation>
           <br/>
           <GoogleLogin
-            clientId="246669271904-47veboe92nhm3360ecd1ba3kppu31spf.apps.googleusercontent.com"
-            // 246669271904-47veboe92nhm3360ecd1ba3kppu31spf.apps.googleusercontent.com
-            // secretclient="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"
-            // 542976285825-rf19864bquhcbcrlngkfqpu7jb16soai.apps.googleusercontent.com
+            clientId={clientId}
             render={(renderProps) => (
               <MDBBtn 
                 style={{width: "100%"}}

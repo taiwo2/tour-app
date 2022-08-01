@@ -1,8 +1,8 @@
 import React, {useEffect,useState} from 'react'
-import {MDBCard,MDBCardBody,MDBInput,MDBIcon,MDBCardFooter,MDBValidation,MDBBtn,MDBSpinner}
+import {MDBCard,MDBCardBody,MDBInput,MDBValidation,MDBBtn}
  from "mdb-react-ui-kit";
 import { toast } from 'react-toastify';
-import { Link,useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import FileBase from 'react-file-base64';
 import ChipInput from 'material-ui-chip-input';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,16 +20,18 @@ const AddTour = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams()
-  const {userTour,error,loading} = useSelector((state) => ({...state.tour}))
+  const {userTour,error} = useSelector((state) => ({...state.tour}))
   const {user} = useSelector((state) => ({...state.auth}))
   useEffect(() => {
     if (id) {
       const singleTour = userTour.find((item) => item._id  === id);
-      setTourData({...singleTour})
-    }
-  },[id])
+      setTourData({...singleTour});  
+    };
+    // eslint-disable-next-line
+  },[id]);
   useEffect(() => {
     error && toast.error(error)
+    // eslint-disable-next-line
   },[error])
   const handleSubmit= (e) => {
     e.preventDefault();

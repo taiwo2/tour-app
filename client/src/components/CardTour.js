@@ -3,7 +3,7 @@ import {MDBCardText,MDBCardGroup,MDBCard,MDBCardImage, MDBCardBody, MDBCardTitle
  from "mdb-react-ui-kit";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { likeTour } from '../redux/feature/tourSlice';
+import { likeTours } from '../redux/feature/tourSlice';
 const CardTour = ({imageFile,_id,description,title,tags,name,likes}) => {
   const {user} = useSelector((state) => ({...state.auth}));
   const dispatch = useDispatch()
@@ -23,10 +23,10 @@ const CardTour = ({imageFile,_id,description,title,tags,name,likes}) => {
         &nbsp;
         {likes.length > 2 ? (
           <MDBTooltip tag="a" title={`You and ${likes.length - 1} other people likes`}>
-            {likes.length}
+            {likes.length} Likes
           </MDBTooltip>
           ): (
-            `${likes.length} Likes${likes.length > 1 ? "s" : ""}`
+            `${likes.length} Like${likes.length > 1 ? "s" : ""}`
           )
         }
         </>
@@ -46,7 +46,7 @@ const CardTour = ({imageFile,_id,description,title,tags,name,likes}) => {
   };
 
   const handleLikes = () => {
-    dispatch(likeTour(_id))
+    dispatch(likeTours({_id}))
   }
   return (
     <MDBCardGroup>
@@ -59,8 +59,8 @@ const CardTour = ({imageFile,_id,description,title,tags,name,likes}) => {
         />
         <div className="top-left"> {name}</div>
         <span className='text-start tag-card'>
-          {tags.map((tag) => (
-            <Link to={`/tours/tag/${tag}`}>#{tag}</Link>
+          {tags.map((tag,index) => (
+            <Link key={index} to={`/tours/tag/${tag}`} className="me-1">#{tag}</Link>
           ))}
           <MDBBtn 
             style={{float: "right"}} 

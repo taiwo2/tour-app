@@ -68,7 +68,7 @@ export const searchTour = createAsyncThunk("/tour/searchTour", async(searchQuery
     const response = await api.getTourBySearch(searchQuery);
     return response.data
   } catch (error) {
-    console.log(error)
+    // console.log(error)
     return rejectWithValue(error.response.data);
   }
 });
@@ -91,9 +91,10 @@ export const getRelatedTours = createAsyncThunk("/tour/getRelatedTours", async(t
     return rejectWithValue(error.response.data);
   }
 });
-export const likeTour = createAsyncThunk("/tour/likeTour", async({_id},{rejectWithValue}) => {
+export const likeTours = createAsyncThunk("/tour/likeTour", async({_id},{rejectWithValue}) => {
   try {
     const response = await api.likeTour(_id);
+    // console.log('wiw',response.data)
     return response.data
   } catch (error) {
     console.log(error)
@@ -231,16 +232,15 @@ const tourSlice = createSlice({
       state.loading= false;
       state.error= action.payload.message;
     },
-    [likeTour.pending]: (state,action) =>{},
-    [likeTour.fulfilled]: (state,action) =>{
+    [likeTours.pending]: (state,action) =>{},
+    [likeTours.fulfilled]: (state,action) =>{
       state.loading= false;
       const {arg: {_id}} = action.meta;
       if (_id){
         state.tours = state.tours.map((item) => item._id === _id ? action.payload : item);
       };
     },
-    [likeTour.rejected]: (state,action) => {
-      state.loading= false;
+    [likeTours.rejected]: (state,action) => {
       state.error= action.payload.message;
     },
   },

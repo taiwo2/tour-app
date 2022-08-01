@@ -44,27 +44,30 @@ code {
   text-align: left;
   font-size: 14px ;
 }
-
+.spinner {
+  position: absolute;
+  left: 50%;  
+}
 h4 {
   overflow: hidden;
   text-align: center;
 }
 
-h4::before,
-h4::after{
+h4:before,
+h4:after{
   background-color: #000;
   content: "";
-  display: inline-block;
+  display: block;
   height: 1px;
   position: relative;
   width: 50%;
-  vertical-align: middle;
+  /* vertical-align: middle; */
 }
-h4::before {
-  right: 0.5rem;
+h4:before {
+  right: 0.5em;
   margin-left: -50%;
 }
-h4::after {
-  right: 0.5rem;
+h4:after {
+  right: 0.5em;
   margin-left: -50%;
 }
