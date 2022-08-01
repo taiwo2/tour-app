@@ -1,6 +1,6 @@
 
-  <h2 align="center">Tour</h2>
-  <p>A FUll-Stack react-redux single page responsive application, where a use can post,edit,updatea and Create when signin. A user needs to sign up and login to ther App</p>
+  <h2 align="center">FULL_STACK TOUR APP</h2>
+  <p>A FUll-Stack react-redux single page responsive application, where a use can post,edit,update,search and Create a tour when signin. A user needs to sign up and login to the App</p>
 
 
 * ![Home](./tonaz.png)
@@ -18,14 +18,6 @@
 * [Potential Future Updates](#potential-future-updates)
 * [Contact](#authors)
 * [Acknowledgements](#acknowledgments)
-
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-In this project I have developed a single page application for a Hospital with react and redux libraries. App name is BHAKTI HUSADA Hospital. A user can sign up/login to see the details of doctors and book an appointment.
-
-App uses react router to route to different components. 
-Backend APIs are developed with Ruby on Rails. [Click here](https://github.com/taiwo2/appointment-backend.git) to see backend project details.
 
 
 <!-- Live Link  -->
